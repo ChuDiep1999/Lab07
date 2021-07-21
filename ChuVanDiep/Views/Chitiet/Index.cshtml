@@ -1,0 +1,39 @@
+﻿@model dienthoai.Models.sanpham
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<fieldset>
+    <legend>
+        Thong tin san pham @Model.tensp
+    </legend>
+    <div class="row">
+        <div class="col-md-6">
+            @{ var img = "/content" + Model.hinhanh.Remove(0, 1);}
+            <img class="img-thumbnail" src="=@img" />
+        </div>
+        <div class="col-md-6">
+            <div>@Model.tensp</div>
+            <div>@Model.mota</div>
+            <div>Năm sản xuất: @Model.namsx</div>
+            <div>
+                Tình trạng: @{
+                    string tinhtrang = (Model.tinhtrang == -1 ?
+                        "SP sắp về" : (Model.tinhtrang == 0 ?
+                        "Hết hàng" : "Còn hàng"));
+                } @tinhtrang
+            </div>
+
+            <div>
+                @{
+                    if (Model.tinhtrang == 1)
+                    {
+                        @Html.ActionLink("Đặt hàng", "chonhang", "giohang", new { id = Model.masp }, new { @class = "btn btn-primary" })
+                    }
+                }
+            </div>
+        </div>
+    </div>  
+</fieldset>

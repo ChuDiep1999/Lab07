@@ -1,0 +1,10 @@
+﻿@model IEnumerable<dienthoai.Models.loaisanpham>
+
+<ul class="list-group">
+    @foreach(var lsp in Model)
+            {
+                <li class="list-group-item">
+                    @Html.ActionLink(lsp.tenloai, "index", "danhsachsp", new {id=lsp.maloai},null)
+                </li>
+            }
+</ul>

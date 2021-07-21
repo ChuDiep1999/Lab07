@@ -1,0 +1,41 @@
+﻿@using dienthoai.Models
+@model List<GioHang>
+@{
+    ViewBag.Title = "dathang";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Xem Gio Hang</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th>STT</th>
+        <th>Tên sản phẩm</th>
+        <th>Số lượng</th>
+        <th>Thành tiền</th>
+        <th>Xóa</th>
+    </tr>
+    @using (Html.BeginForm("thanhtoan", "GioHang"))
+    {
+        int i = 1;
+        foreach (var item in Model)
+        {
+        <tr>
+            <td>@i</td>
+            <td>@item.strTenSP</td>
+            <td>@item.iSoLuong</td>
+            <td>@string.Format("{0:0,0}", item.dThanhtien)</td>
+        </tr>
+            i += 1;
+        }
+        <tr>
+            <td colspan="2" class="text-right">So luong:@ViewBag.soluong</td>
+            <td colspan="3" class="text-right">Tong tien:@string.Format("{0:0,0}", ViewBag.thanhtien)</td>
+        </tr>
+        <tr>
+            <td colspan="5" class="text-right">
+            @Html.ActionLink("Thanh Toán", "thanhtoan", "giohang", null, new { @class = "btn btn-primary" })
+            </td>
+        </tr>
+    }
+</table>

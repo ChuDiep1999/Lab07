@@ -1,0 +1,53 @@
+﻿@using PagedList.Mvc
+@using dienthoai.Models
+@model PagedList.PagedList<dienthoai.Models.sanpham>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var spsv = (PagedList.PagedList<dienthoai.Models.sanpham>)ViewBag.spsapve;
+    var spmoi = (PagedList.PagedList<dienthoai.Models.sanpham>)ViewBag.spmoi;
+}
+
+<h2>San pham</h2>
+
+<div>
+    <fieldset>
+        <legend>
+            san pham moi
+        </legend>
+        <div class="row">
+            @foreach (var n in spmoi)
+            {
+                <div class="col-md-3">
+                    <div class="">
+                        @{ var img = "/content" + n.hinhanh.Remove(0, 1);}
+                        <img class="img-circle" src="@Url.Content(@img)" />
+                    </div>
+                    <div>@n.tensp</div>
+                </div>
+            }
+        </div>
+        <div class="col-md-12"> 
+        @Html.PagedListPager(spmoi, page => Url.Action("Index", new {@page = page, @p2 = 1}))
+        </div>
+    </fieldset>
+</div>
+<fieldset>
+    <legend> San pham sap ve</legend>
+    <div class="row">
+        @foreach (var sp in spsv)
+        {
+            <div class="col-md-3">
+                <div class="">
+                    @{ var img = "/content" + @sp.hinhanh.Remove(0, 1);}
+                    <img class="img-circle" src="@Url.Content(@img)" />
+                </div>
+                <div>@Html.ActionLink(@sp.tensp,"index","chitiet", new { id = sp.masp }, null)</div>
+            </div>
+        }
+    </div>
+    <div class="col-md-12">
+        @Html.PagedListPager(spsv, page => Url.Action("Index", new {@page = 1, @p2 = page}))
+    </div>
+</fieldset>

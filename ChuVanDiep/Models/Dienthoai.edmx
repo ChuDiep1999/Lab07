@@ -1,0 +1,327 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="dienthoaiModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="chitietdonhang">
+          <Key>
+            <PropertyRef Name="madonhang" />
+            <PropertyRef Name="masp" />
+          </Key>
+          <Property Name="madonhang" Type="bigint" Nullable="false" />
+          <Property Name="masp" Type="bigint" Nullable="false" />
+          <Property Name="soluong" Type="int" />
+          <Property Name="dongia" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="DonHang">
+          <Key>
+            <PropertyRef Name="madonghang" />
+          </Key>
+          <Property Name="madonghang" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="thanhtoan" Type="bit" />
+          <Property Name="giaohang" Type="bit" />
+          <Property Name="ngaydathang" Type="datetime" />
+          <Property Name="ngaygiaohang" Type="datetime" />
+          <Property Name="makha" Type="bigint" Nullable="false" />
+          <Property Name="sohoadon" Type="nchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="loaisanpham">
+          <Key>
+            <PropertyRef Name="maloai" />
+          </Key>
+          <Property Name="maloai" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tenloai" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="sanpham">
+          <Key>
+            <PropertyRef Name="masp" />
+          </Key>
+          <Property Name="masp" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tensp" Type="nvarchar" MaxLength="150" />
+          <Property Name="hinhanh" Type="nvarchar" MaxLength="150" />
+          <Property Name="maloai" Type="bigint" />
+          <Property Name="namsx" Type="int" />
+          <Property Name="mota" Type="nvarchar" MaxLength="50" />
+          <Property Name="tinhtrang" Type="int" />
+          <Property Name="gia" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="userid" />
+          </Key>
+          <Property Name="userid" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="nvarchar" MaxLength="50" />
+          <Property Name="address" Type="nvarchar" MaxLength="100" />
+          <Property Name="tel" Type="varchar" MaxLength="20" />
+          <Property Name="password" Type="nvarchar" MaxLength="20" />
+          <Property Name="fullname" Type="nvarchar" MaxLength="50" />
+          <Property Name="role" Type="bit" />
+          <Property Name="active" Type="bit" />
+        </EntityType>
+        <Association Name="FK_chitietdonhang_DonHang">
+          <End Role="DonHang" Type="Self.DonHang" Multiplicity="1" />
+          <End Role="chitietdonhang" Type="Self.chitietdonhang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DonHang">
+              <PropertyRef Name="madonghang" />
+            </Principal>
+            <Dependent Role="chitietdonhang">
+              <PropertyRef Name="madonhang" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_chitietdonhang_sanpham">
+          <End Role="sanpham" Type="Self.sanpham" Multiplicity="1" />
+          <End Role="chitietdonhang" Type="Self.chitietdonhang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sanpham">
+              <PropertyRef Name="masp" />
+            </Principal>
+            <Dependent Role="chitietdonhang">
+              <PropertyRef Name="masp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sanpham_loaisanpham">
+          <End Role="loaisanpham" Type="Self.loaisanpham" Multiplicity="0..1" />
+          <End Role="sanpham" Type="Self.sanpham" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="loaisanpham">
+              <PropertyRef Name="maloai" />
+            </Principal>
+            <Dependent Role="sanpham">
+              <PropertyRef Name="maloai" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dienthoaiModelStoreContainer">
+          <EntitySet Name="chitietdonhang" EntityType="Self.chitietdonhang" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DonHang" EntityType="Self.DonHang" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="loaisanpham" EntityType="Self.loaisanpham" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sanpham" EntityType="Self.sanpham" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_chitietdonhang_DonHang" Association="Self.FK_chitietdonhang_DonHang">
+            <End Role="DonHang" EntitySet="DonHang" />
+            <End Role="chitietdonhang" EntitySet="chitietdonhang" />
+          </AssociationSet>
+          <AssociationSet Name="FK_chitietdonhang_sanpham" Association="Self.FK_chitietdonhang_sanpham">
+            <End Role="sanpham" EntitySet="sanpham" />
+            <End Role="chitietdonhang" EntitySet="chitietdonhang" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sanpham_loaisanpham" Association="Self.FK_sanpham_loaisanpham">
+            <End Role="loaisanpham" EntitySet="loaisanpham" />
+            <End Role="sanpham" EntitySet="sanpham" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dienthoaiModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="chitietdonhang">
+          <Key>
+            <PropertyRef Name="madonhang" />
+            <PropertyRef Name="masp" />
+          </Key>
+          <Property Name="madonhang" Type="Int64" Nullable="false" />
+          <Property Name="masp" Type="Int64" Nullable="false" />
+          <Property Name="soluong" Type="Int32" />
+          <Property Name="dongia" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="DonHang" Relationship="Self.FK_chitietdonhang_DonHang" FromRole="chitietdonhang" ToRole="DonHang" />
+          <NavigationProperty Name="sanpham" Relationship="Self.FK_chitietdonhang_sanpham" FromRole="chitietdonhang" ToRole="sanpham" />
+        </EntityType>
+        <EntityType Name="DonHang">
+          <Key>
+            <PropertyRef Name="madonghang" />
+          </Key>
+          <Property Name="madonghang" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="thanhtoan" Type="Boolean" />
+          <Property Name="giaohang" Type="Boolean" />
+          <Property Name="ngaydathang" Type="DateTime" Precision="3" />
+          <Property Name="ngaygiaohang" Type="DateTime" Precision="3" />
+          <Property Name="makha" Type="Int64" Nullable="false" />
+          <Property Name="sohoadon" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="chitietdonhangs" Relationship="Self.FK_chitietdonhang_DonHang" FromRole="DonHang" ToRole="chitietdonhang" />
+        </EntityType>
+        <EntityType Name="loaisanpham">
+          <Key>
+            <PropertyRef Name="maloai" />
+          </Key>
+          <Property Name="maloai" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tenloai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="sanphams" Relationship="Self.FK_sanpham_loaisanpham" FromRole="loaisanpham" ToRole="sanpham" />
+        </EntityType>
+        <EntityType Name="sanpham">
+          <Key>
+            <PropertyRef Name="masp" />
+          </Key>
+          <Property Name="masp" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tensp" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="hinhanh" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="maloai" Type="Int64" />
+          <Property Name="namsx" Type="Int32" />
+          <Property Name="mota" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="tinhtrang" Type="Int32" />
+          <Property Name="gia" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="chitietdonhangs" Relationship="Self.FK_chitietdonhang_sanpham" FromRole="sanpham" ToRole="chitietdonhang" />
+          <NavigationProperty Name="loaisanpham" Relationship="Self.FK_sanpham_loaisanpham" FromRole="sanpham" ToRole="loaisanpham" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="userid" />
+          </Key>
+          <Property Name="userid" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="tel" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="fullname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="role" Type="Boolean" />
+          <Property Name="active" Type="Boolean" />
+        </EntityType>
+        <Association Name="FK_chitietdonhang_DonHang">
+          <End Role="DonHang" Type="Self.DonHang" Multiplicity="1" />
+          <End Role="chitietdonhang" Type="Self.chitietdonhang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DonHang">
+              <PropertyRef Name="madonghang" />
+            </Principal>
+            <Dependent Role="chitietdonhang">
+              <PropertyRef Name="madonhang" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_chitietdonhang_sanpham">
+          <End Role="sanpham" Type="Self.sanpham" Multiplicity="1" />
+          <End Role="chitietdonhang" Type="Self.chitietdonhang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sanpham">
+              <PropertyRef Name="masp" />
+            </Principal>
+            <Dependent Role="chitietdonhang">
+              <PropertyRef Name="masp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sanpham_loaisanpham">
+          <End Role="loaisanpham" Type="Self.loaisanpham" Multiplicity="0..1" />
+          <End Role="sanpham" Type="Self.sanpham" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="loaisanpham">
+              <PropertyRef Name="maloai" />
+            </Principal>
+            <Dependent Role="sanpham">
+              <PropertyRef Name="maloai" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dienthoaiEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="chitietdonhangs" EntityType="Self.chitietdonhang" />
+          <EntitySet Name="DonHangs" EntityType="Self.DonHang" />
+          <EntitySet Name="loaisanphams" EntityType="Self.loaisanpham" />
+          <EntitySet Name="sanphams" EntityType="Self.sanpham" />
+          <EntitySet Name="users" EntityType="Self.user" />
+          <AssociationSet Name="FK_chitietdonhang_DonHang" Association="Self.FK_chitietdonhang_DonHang">
+            <End Role="DonHang" EntitySet="DonHangs" />
+            <End Role="chitietdonhang" EntitySet="chitietdonhangs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_chitietdonhang_sanpham" Association="Self.FK_chitietdonhang_sanpham">
+            <End Role="sanpham" EntitySet="sanphams" />
+            <End Role="chitietdonhang" EntitySet="chitietdonhangs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sanpham_loaisanpham" Association="Self.FK_sanpham_loaisanpham">
+            <End Role="loaisanpham" EntitySet="loaisanphams" />
+            <End Role="sanpham" EntitySet="sanphams" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dienthoaiModelStoreContainer" CdmEntityContainer="dienthoaiEntities">
+          <EntitySetMapping Name="chitietdonhangs">
+            <EntityTypeMapping TypeName="dienthoaiModel.chitietdonhang">
+              <MappingFragment StoreEntitySet="chitietdonhang">
+                <ScalarProperty Name="madonhang" ColumnName="madonhang" />
+                <ScalarProperty Name="masp" ColumnName="masp" />
+                <ScalarProperty Name="soluong" ColumnName="soluong" />
+                <ScalarProperty Name="dongia" ColumnName="dongia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DonHangs">
+            <EntityTypeMapping TypeName="dienthoaiModel.DonHang">
+              <MappingFragment StoreEntitySet="DonHang">
+                <ScalarProperty Name="madonghang" ColumnName="madonghang" />
+                <ScalarProperty Name="thanhtoan" ColumnName="thanhtoan" />
+                <ScalarProperty Name="giaohang" ColumnName="giaohang" />
+                <ScalarProperty Name="ngaydathang" ColumnName="ngaydathang" />
+                <ScalarProperty Name="ngaygiaohang" ColumnName="ngaygiaohang" />
+                <ScalarProperty Name="makha" ColumnName="makha" />
+                <ScalarProperty Name="sohoadon" ColumnName="sohoadon" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="loaisanphams">
+            <EntityTypeMapping TypeName="dienthoaiModel.loaisanpham">
+              <MappingFragment StoreEntitySet="loaisanpham">
+                <ScalarProperty Name="maloai" ColumnName="maloai" />
+                <ScalarProperty Name="tenloai" ColumnName="tenloai" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sanphams">
+            <EntityTypeMapping TypeName="dienthoaiModel.sanpham">
+              <MappingFragment StoreEntitySet="sanpham">
+                <ScalarProperty Name="masp" ColumnName="masp" />
+                <ScalarProperty Name="tensp" ColumnName="tensp" />
+                <ScalarProperty Name="hinhanh" ColumnName="hinhanh" />
+                <ScalarProperty Name="maloai" ColumnName="maloai" />
+                <ScalarProperty Name="namsx" ColumnName="namsx" />
+                <ScalarProperty Name="mota" ColumnName="mota" />
+                <ScalarProperty Name="tinhtrang" ColumnName="tinhtrang" />
+                <ScalarProperty Name="gia" ColumnName="gia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="dienthoaiModel.user">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="tel" ColumnName="tel" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="fullname" ColumnName="fullname" />
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

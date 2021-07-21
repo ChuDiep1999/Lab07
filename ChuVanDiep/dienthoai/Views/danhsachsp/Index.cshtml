@@ -1,0 +1,32 @@
+﻿@using PagedList.Mvc
+@using dienthoai.Models
+@model PagedList.PagedList<dienthoai.Models.sanpham>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var spmoi = (PagedList.PagedList<dienthoai.Models.sanpham>)ViewBag.list;
+}
+
+<h2> Các sản phẩm thuộc @ViewBag.Tenloai</h2>
+<div class="row">
+    @foreach (var item in spmoi)
+    {
+    <div class="col-md-3">
+        <div>
+            @{
+                var img = item.hinhanh;
+                img = img ?? "~/images/sanpham/noimage.png";
+                img = "/content/" + img.Remove(0, 1);
+            }
+            <img class="imgsize" src="@img" />
+        </div>
+        <div>
+            @Html.ActionLink(item.tensp + "-" + item.namsx, "index", "chitiet", new { id = item.masp }, null)
+        </div>
+    </div>           
+     }
+</div>
+<div class="col-md-12">
+    @Html.PagedListPager(spmoi, page => Url.Action("Index", new {@id = ViewBag.id, @page = page}))
+</div>

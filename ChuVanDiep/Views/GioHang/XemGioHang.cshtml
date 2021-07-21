@@ -1,0 +1,52 @@
+﻿@using dienthoai.Models
+@model List<GioHang>
+@{
+    ViewBag.Title = "XemGioHang";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Xem Gio Hang</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th>STT</th>
+        <th>Tên sản phẩm</th>
+        <th>Số lượng</th>
+        <th>Thành tiền</th>
+        <th>Xóa</th>
+    </tr>
+    @{ int i = 1;
+        if(Model.Count > 0)
+        {
+            foreach(var item in Model)
+                {
+                    <tr>@using (Html.BeginForm("Capnhat","GioHang", new {@id=item.iMaSP }))
+                    {
+                        <td>@i</td>
+                        <td>@item.strTenSP</td>
+                        <td>@Html.TextBox("txtSoluong",item.iSoLuong)
+                            <input type="submit" value="Cập nhật" class="btn" />
+                        </td>
+                        <td>@string.Format("{0:0,0}", item.dThanhtien)</td>
+                        <td>@Html.ActionLink("Xóa", "Xoa", new { @id = item.iMaSP}, new { @class = "btn btn-primary"})</td>
+                    }
+                    </tr>
+                i += 1;
+            }
+<tr>
+    <td colspan="2" class="text-right">So luong:@ViewBag.soluong</td>
+    <td colspan="3" class="text-right">Tong tien:@string.Format("{0:0,0}",ViewBag.thanhtien)</td>
+</tr>
+<tr>
+    <td colspan="5" class="text-right">@Html.ActionLink("Đặt hàng", "dathang", "giohang", null, new { @class = "btn btn-primary"})</td>
+</tr>
+        }
+            else
+            {
+                <tr>
+                    <td colspan="5">Chưa có hàng trong giỏ</td>
+                </tr>
+            }
+     }
+</table>
+

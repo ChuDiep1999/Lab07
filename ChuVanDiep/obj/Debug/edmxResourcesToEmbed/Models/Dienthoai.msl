@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="dienthoaiModelStoreContainer" CdmEntityContainer="dienthoaiEntities">
+    <EntitySetMapping Name="chitietdonhangs">
+      <EntityTypeMapping TypeName="dienthoaiModel.chitietdonhang">
+        <MappingFragment StoreEntitySet="chitietdonhang">
+          <ScalarProperty Name="madonhang" ColumnName="madonhang" />
+          <ScalarProperty Name="masp" ColumnName="masp" />
+          <ScalarProperty Name="soluong" ColumnName="soluong" />
+          <ScalarProperty Name="dongia" ColumnName="dongia" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DonHangs">
+      <EntityTypeMapping TypeName="dienthoaiModel.DonHang">
+        <MappingFragment StoreEntitySet="DonHang">
+          <ScalarProperty Name="madonghang" ColumnName="madonghang" />
+          <ScalarProperty Name="thanhtoan" ColumnName="thanhtoan" />
+          <ScalarProperty Name="giaohang" ColumnName="giaohang" />
+          <ScalarProperty Name="ngaydathang" ColumnName="ngaydathang" />
+          <ScalarProperty Name="ngaygiaohang" ColumnName="ngaygiaohang" />
+          <ScalarProperty Name="makha" ColumnName="makha" />
+          <ScalarProperty Name="sohoadon" ColumnName="sohoadon" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="loaisanphams">
+      <EntityTypeMapping TypeName="dienthoaiModel.loaisanpham">
+        <MappingFragment StoreEntitySet="loaisanpham">
+          <ScalarProperty Name="maloai" ColumnName="maloai" />
+          <ScalarProperty Name="tenloai" ColumnName="tenloai" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sanphams">
+      <EntityTypeMapping TypeName="dienthoaiModel.sanpham">
+        <MappingFragment StoreEntitySet="sanpham">
+          <ScalarProperty Name="masp" ColumnName="masp" />
+          <ScalarProperty Name="tensp" ColumnName="tensp" />
+          <ScalarProperty Name="hinhanh" ColumnName="hinhanh" />
+          <ScalarProperty Name="maloai" ColumnName="maloai" />
+          <ScalarProperty Name="namsx" ColumnName="namsx" />
+          <ScalarProperty Name="mota" ColumnName="mota" />
+          <ScalarProperty Name="tinhtrang" ColumnName="tinhtrang" />
+          <ScalarProperty Name="gia" ColumnName="gia" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="users">
+      <EntityTypeMapping TypeName="dienthoaiModel.user">
+        <MappingFragment StoreEntitySet="users">
+          <ScalarProperty Name="userid" ColumnName="userid" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="tel" ColumnName="tel" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="fullname" ColumnName="fullname" />
+          <ScalarProperty Name="role" ColumnName="role" />
+          <ScalarProperty Name="active" ColumnName="active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
